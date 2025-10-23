@@ -1,10 +1,10 @@
-baseURL: /
+baseURL: https://ThanhCuong1807.github.io/Blog/
 languageCode: en-us
 build:
   writeStats: true
 title: aafu theme
 # Uncomment below to use aafu as hugo theme. See instructions in README.md
-# theme: aafu
+theme: aafu
 
 params:
   author: Darshan Baral
