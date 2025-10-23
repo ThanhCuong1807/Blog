@@ -28,7 +28,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
         with:
-          submodules: 'recursive' # QUAN TRỌNG: Tải cả theme 'aafu'
+          submodules: 'recursive' # Rất quan trọng: Tải cả theme 'aafu'
 
       # 2. Cài đặt Hugo (bản extended cho Tailwind)
       - name: Setup Hugo
