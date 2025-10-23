@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on aafu theme</title>
+    <link>https://aafu.darshanbaral.com/tags/</link>
+    <description>Recent content in Tags on aafu theme</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://aafu.darshanbaral.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Css</title>
+      <link>https://aafu.darshanbaral.com/tags/css/</link>
+      <pubDate>Sat, 19 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/css/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Html</title>
+      <link>https://aafu.darshanbaral.com/tags/html/</link>
+      <pubDate>Sat, 19 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/html/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markdown</title>
+      <link>https://aafu.darshanbaral.com/tags/markdown/</link>
+      <pubDate>Sat, 19 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/markdown/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Themes</title>
+      <link>https://aafu.darshanbaral.com/tags/themes/</link>
+      <pubDate>Sat, 19 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/themes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Laoreet</title>
+      <link>https://aafu.darshanbaral.com/tags/laoreet/</link>
+      <pubDate>Sat, 06 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/laoreet/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mollis Urna</title>
+      <link>https://aafu.darshanbaral.com/tags/mollis-urna/</link>
+      <pubDate>Sat, 06 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/mollis-urna/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notes</title>
+      <link>https://aafu.darshanbaral.com/tags/notes/</link>
+      <pubDate>Sat, 06 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://aafu.darshanbaral.com/tags/notes/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
