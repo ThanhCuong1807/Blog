@@ -1,49 +1,73 @@
-name: Deploy Hugo site with Pagefind to GitHub Pages
+name: Deploy Hugo Site to GitHub Pages
 
 on:
+  # Chạy khi push code lên branch 'main'
   push:
-    branches: [main]
+    branches:
+      - main
+  
+  # Cho phép chạy thủ công từ tab Actions
   workflow_dispatch:
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      contents: write
+# Quyền hạn (permissions) cho workflow
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
+# Đảm bảo chỉ có 1 workflow chạy 1 lúc
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      # 1. Tải code từ repo
+      - name: Check out
         uses: actions/checkout@v4
         with:
-          submodules: true
-          fetch-depth: 0
+          submodules: 'recursive' # QUAN TRỌNG: Tải cả theme 'aafu'
 
+      # 2. Cài đặt Hugo (bản extended cho Tailwind)
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "0.147.9"
-          extended: true
+          hugo-version: 'latest'
+          extended: true 
 
-      - name: Setup Node.js
+      # 3. Cài đặt Node.js (để chạy npm)
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "24.3.0"
+          node-version: '18' # Dùng phiên bản 18 (LTS)
+          cache: 'npm'
 
+      # 4. Cài đặt các gói npm (như Tailwind, Pagefind)
       - name: Install npm dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build Hugo site
+      # 5. Build trang web VÀ tạo chỉ mục Pagefind
+      - name: Build Hugo site and Pagefind index
         run: |
-          hugo -b https://aafu.darshanbaral.com/
+          # Chạy hugo (Nó sẽ tự động lấy baseURL từ config.yaml của bạn)
+          hugo --gc
+          
+          # Chạy Pagefind trên thư mục 'public' vừa được build
           npx -y pagefind --site public
-
-      - name: Add CNAME file for custom domain
-        run: echo "aafu.darshanbaral.com" > public/CNAME
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+          
+      # 6. Chuẩn bị cho GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        
+      # 7. Tải 'public' artifact lên
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
+          path: ./public
+
+      # 8. Deploy lên GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
