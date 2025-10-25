@@ -1,5 +1,5 @@
 ---
-title: "luctus enim ultricies auctor pulvinar nam etiam"
+title: "Chương 3: Lập trình đa tuyến"
 date: 2018-01-06
 tags: ["mollis urna", "notes", "laoreet"]
 categories: ["diam aliqua", "fringilla"]
@@ -7,10 +7,28 @@ description: "dictum tellus sapien vitae integer justo amet mauris cras bolestie
 draft: false
 ---
 
-## donec lacinia eleifend sem a
+## I. Giới thiệu: Vấn đề của Server đơn tuyến
 
-Pulvinar tempor ultrices amet praesent aliquet non magnis euismod elit venenatis. Aliqua consequat tristique erat nulla sit risus aliqua posuere. Potenti natoque augue proin accimsan risus scelerisque id integer curabitur mattis amet quisque. Aliquet porta sit sapien natoque sed fringilla, madssa suspendisse vivamus placerat sociis condimentum ridiculus. Natoque egestas non lectus pellentesque nunc mattis eu ridiculus pretium maecenas ligula. Gravida facilisis sem mollis sagittis aliquet ornare bibendum, leo nec morbi tortor diam maecenas tempor.
+### 1. Mục tiêu bài học
+* Hiểu rõ khái niệm **Tuyến** (Thread) và **Đa tuyến** (Multithreading).
+* Giải thích được tại sao lập trình mạng **bắt buộc** phải sửS dụng đa tuyến.
+* Nắm được hai cách tạo Thread trong Java: Kế thừa lớp `Thread` và triển khai `Runnable` (Interface).
+* Áp dụng đa tuyến để xây dựng một **Server** hoàn chỉnh có khả năng xử lý nhiều Client cùng lúc mà không bị "khóa".
 
-Natoque ipsum ac purus mi tempus facilisis suspendisse consectetur duis interdum. Potenti vel accimsan fringilla vestibulum neque odio, lacinia duis facilisi turpis consectetur sollicitudin eleifend. Netus posuere et aliquet mauris lacinia habitant lacus imperdiet. Mollis auctor facilisi commodo maecenas condimentum convallis, pretium in consequat velit vel ipsum posuere. Est mollis imperdiet proin vel iaculis aliquam lorem, nibh mattis magna commodo consequat convallis volutpat. Vel gravida purus sagittis nunc netus aliquam quis facilisi magnis.
+### 2. Vấn đề "Blocking"
+Ở Bài 2, chúng ta đã học về Kịch bản 1 (Đọc) và Kịch bản 2 (Ghi). Nếu bạn viết chúng nối tiếp nhau trong một Server, bạn sẽ gặp một vấn đề nghiêm trọng:
 
-Sapien tellus lobortis felis pulvinar ut vulputate adipiscing nisi leo vitae. Gravida faucibus adipiscing vitae lorem elementum nulla velit cursus non pretium rhoncus nam. Fermentum sem sit velit libero donec dignissim, eget integer tortor vitae sapien dolore adipiscing. Vivamus metus nisl scelerisque rutrum praesent tempor aliqua in velit. Erat auctor fames mus mi pulvinar nulla porta rhoncus. Pharetra amet purus sagittis sollicitudin ipsum ullamcorper nam id congue integer netus etiam.
+```java
+// Mã giả của Server đơn tuyến (SAI)
+serverSocket.accept(); // Chấp nhận Client 1
+
+// Bắt đầu Kịch bản 1 (Đọc)
+String msg = bufferedReader.readLine(); // <-- CHƯƠNG TRÌNH DỪNG LẠI Ở ĐÂY
+
+// Kịch bản 2 (Ghi) sẽ không bao giờ chạy
+// cho đến khi Client 1 gửi tin nhắn.
+printWriter.println("Gửi tin nhắn");
+
+// Server không thể chấp nhận Client 2
+// vì đang bận chờ Client 1.
+serverSocket.accept(); // <-- Dòng này không bao giờ tới
